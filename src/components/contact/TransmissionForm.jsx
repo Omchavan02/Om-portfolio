@@ -27,10 +27,10 @@ function TransmissionForm() {
 
     try {
       await emailjs.send(
-        "service_t580ium",
-        "template_vwjtsb7",
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formData,
-        "bIqqO7rX6AaCfoWXt"
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       setStatus("success");
