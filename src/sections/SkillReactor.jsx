@@ -96,8 +96,8 @@ function SkillReactor() {
               </div>
             </div>
 
-            {/* KEY METRICS: PROJECT USAGE, TECHNOLOGY COUNT, CONFIDENCE SCORE */}
-            <div className="mt-7 grid grid-cols-3 gap-4 pt-5 border-t border-cyan-500/20">
+            {/* KEY METRICS: PROJECT USAGE, TECHNOLOGY COUNT */}
+            <div className="mt-7 grid grid-cols-2 gap-4 pt-5 border-t border-cyan-500/20">
               <div className="text-center">
                 <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Project Usage</p>
                 <p className="text-3xl font-black text-cyan-300">{activeGroup.projectUsage}</p>
@@ -105,10 +105,6 @@ function SkillReactor() {
               <div className="text-center">
                 <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Tech Count</p>
                 <p className="text-3xl font-black text-cyan-300">{activeGroup.items.length}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">Confidence</p>
-                <p className="text-3xl font-black text-green-400">{activeGroup.confidenceScore}</p>
               </div>
             </div>
 

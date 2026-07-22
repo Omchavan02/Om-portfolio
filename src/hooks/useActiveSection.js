@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import { useRecruiterMode } from "../context/RecruiterContext";
+import { useEffect, useRef, useState } from "react";
 
 export default function useActiveSection() {
   const [activeSection, setActiveSection] = useState("hero");
-  const { recruiterMode } = useRecruiterMode();
+  const activeSectionRef = useRef("hero");
 
   useEffect(() => {
     const sections = [
@@ -19,11 +18,18 @@ export default function useActiveSection() {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        let nextActiveSection = activeSectionRef.current;
+
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+          if (entry.isIntersecting && entry.target.id !== nextActiveSection) {
+            nextActiveSection = entry.target.id;
           }
         });
+
+        if (nextActiveSection !== activeSectionRef.current) {
+          activeSectionRef.current = nextActiveSection;
+          setActiveSection(nextActiveSection);
+        }
       },
       {
         rootMargin: "-22% 0px -55% 0px",
@@ -40,7 +46,7 @@ export default function useActiveSection() {
     });
 
     return () => observer.disconnect();
-  }, [recruiterMode]);
+  }, []);
 
   return activeSection;
 }

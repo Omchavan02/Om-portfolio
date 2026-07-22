@@ -38,6 +38,16 @@ function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!recruiterMode) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [recruiterMode]);
+
   return (
     <>
       {showBootScreen && <RecruiterBoot />}

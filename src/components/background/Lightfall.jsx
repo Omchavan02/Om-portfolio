@@ -218,6 +218,10 @@ const Lightfall = ({
   const rendererRef = useRef(null);
   const mouseTargetRef = useRef([0, 0]);
   const lastTimeRef = useRef(0);
+  const isScrollingRef = useRef(false);
+  const scrollStopTimerRef = useRef(null);
+  const scrollFrameRef = useRef(null);
+  const lastRenderTimeRef = useRef(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -301,9 +305,27 @@ const Lightfall = ({
       canvas.addEventListener('pointermove', onPointerMove);
     }
 
+    const handleScroll = () => {
+      if (scrollFrameRef.current) return;
+
+      scrollFrameRef.current = requestAnimationFrame(() => {
+        isScrollingRef.current = true;
+        if (scrollStopTimerRef.current) {
+          window.clearTimeout(scrollStopTimerRef.current);
+        }
+        scrollStopTimerRef.current = window.setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 140);
+        scrollFrameRef.current = null;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     const loop = t => {
       rafRef.current = requestAnimationFrame(loop);
       uniforms.iTime.value = t * 0.001;
+
       if (mouseDampening > 0) {
         if (!lastTimeRef.current) lastTimeRef.current = t;
         const dt = (t - lastTimeRef.current) / 1000;
@@ -318,11 +340,15 @@ const Lightfall = ({
       } else {
         lastTimeRef.current = t;
       }
-      if (!paused && programRef.current && meshRef.current) {
+
+      const shouldRender = !paused && programRef.current && meshRef.current && (!isScrollingRef.current || t - lastRenderTimeRef.current >= 32);
+
+      if (shouldRender) {
+        lastRenderTimeRef.current = t;
         try {
           renderer.render({ scene: meshRef.current });
         } catch (e) {
-          console.error(e);
+          if (import.meta.env.DEV) console.error(e);
         }
       }
     };
@@ -331,6 +357,9 @@ const Lightfall = ({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       if (mouseInteraction) canvas.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollFrameRef.current) cancelAnimationFrame(scrollFrameRef.current);
+      if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);

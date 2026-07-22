@@ -42,7 +42,7 @@ function TransmissionForm() {
         message: "",
       });
     } catch (error) {
-      console.error(error);
+      if (import.meta.env.DEV) console.error(error);
       setStatus("error");
     }
 
