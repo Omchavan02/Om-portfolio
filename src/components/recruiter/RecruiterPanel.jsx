@@ -3,6 +3,7 @@ import { Download, GitBranch, Mail, Network, Rocket, CheckCircle, Clock } from "
 import projects from "../../data/projects";
 import skills from "../../data/skills";
 import achievements from "../../data/achievements";
+import internships from "../../data/internship";
 
 const quickLinks = [
   { label: "Resume", href: "/resume/om-surendra-chavan-resume.pdf", icon: Download },
@@ -19,7 +20,7 @@ function RecruiterPanel() {
   const metrics = [
     { label: "Projects Built", value: projects.length },
     { label: "Technologies Learned", value: techCount },
-    { label: "Internship Completed", value: "1" },
+    { label: "Internships Completed", value: internships.length },
     { label: "Certificates Earned", value: achievements.filter((item) => item.category === "Certification").length },
   ];
 

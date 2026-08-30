@@ -4,7 +4,7 @@ import TransmissionForm from "../components/contact/TransmissionForm";
 
 function SecureTransmission({ compact = false }) {
   return (
-    <section id="secure-transmission" className="section-shell transmission-bg px-5 py-20 md:px-10">
+    <section id="secure-transmission" className={`section-shell transmission-bg px-5 md:px-10 ${compact ? "py-14" : "py-20"}`}>
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="mb-12">
           <p className="mb-3 text-sm uppercase tracking-[0.4em] text-cyan-400">Secure Transmission</p>
@@ -34,20 +34,10 @@ function SecureTransmission({ compact = false }) {
             <ContactCard label="Email Channel" value="chavanom020104@gmail.com" link="mailto:chavanom020104@gmail.com" />
             <ContactCard label="LinkedIn Channel" value="linkedin.com/in/omchavan02" link="https://linkedin.com/in/omchavan02" />
             <ContactCard label="GitHub Repository" value="github.com/Omchavan02" link="https://github.com/Omchavan02" />
-            {!compact && <ContactCard label="Location Node" value="Mumbai, Maharashtra, India" link="https://maps.google.com" />}
+            <ContactCard label="Location Node" value="Mumbai, Maharashtra, India" link="https://maps.google.com" />
           </div>
 
-          {!compact ? (
-            <TransmissionForm />
-          ) : (
-            <div className="rounded-lg border border-cyan-500/20 bg-slate-950/75 p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-cyan-300">Recruiter Shortcut</p>
-              <h3 className="mt-4 text-2xl font-bold text-white">Secure hiring channel ready.</h3>
-              <p className="mt-3 text-slate-400">
-                Email, LinkedIn, GitHub, and resume access are already available above for fast recruiter review.
-              </p>
-            </div>
-          )}
+          <TransmissionForm />
         </div>
       </div>
     </section>

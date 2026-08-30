@@ -26,11 +26,18 @@ const KNOWLEDGE = {
     "DBMS",
   ],
 
-  internship: {
-    company: "Sapphire Infocom Pvt. Ltd.",
-    role: "Software Developer Intern",
-    duration: "Aug 2025 - Nov 2025",
-  },
+  internships: [
+    {
+      company: "CodeAlpha",
+      role: "Java Programming Internship",
+      duration: "1 July 2026 - 30 July 2026",
+    },
+    {
+      company: "Sapphire Infocom Pvt. Ltd.",
+      role: "Software Developer Intern",
+      duration: "Aug 2025 - Nov 2025",
+    },
+  ],
 
   projects: [
     "Agrove – Farmer Management System",
